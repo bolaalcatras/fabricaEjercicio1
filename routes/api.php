@@ -14,3 +14,5 @@ Route::get('type/{id}',[TypeController::class, 'show']);
 
 Route::get('transaccion',[TransactionController::class,'index']);
 Route::post('transaccion',[TransactionController::class,'store']);
+Route::put('transaccion/{id}',[TransactionController::class,'update']);
+Route::delete('transaccion/{id}',[TransactionController::class,'destroy']);

@@ -27,7 +27,7 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function     store(Request $request)
     {
 
         $request -> validate([
@@ -63,14 +63,29 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $transaction = Transaction::find($id);
+
+        $request->validate([
+         'monto' => 'required',
+         'fecha' => 'required',
+         'motivo' => 'required',
+         'type_id' => 'required|exists:types,id'
+        ]);
+
+        $transaction->update($request->all());
+        return response()->json($transaction);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $transaction = Transaction::find($id);
+        $transaction->delete();
+
+        return  response()->json(['message' => 'Transaction deleted']);
     }
 }
