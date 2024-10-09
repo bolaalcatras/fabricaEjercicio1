@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -11,7 +12,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        
+        $type = Type::included()->get();
+        return response()->json($type);
     }
 
     /**
@@ -33,9 +35,11 @@ class TypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $type = Type::find($id);
+        
+        return response()->json($type);
     }
 
     /**

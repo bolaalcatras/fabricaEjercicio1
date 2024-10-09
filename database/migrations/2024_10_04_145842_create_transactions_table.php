@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('numeroDeTransaccion');
-            $table->integer('totalTransaccion');
-            $table->date('fechaDeTransaccion');
+            $table->integer('monto');
+            $table->date('fecha');
+            $table->string('motivo');
 
-            $table->unsignedBigInteger('type_id')->nullable();
+            $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
 
             $table->timestamps();

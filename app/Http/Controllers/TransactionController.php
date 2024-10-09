@@ -12,8 +12,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transaction = Transaction::all();
-
+        $transaction = Transaction::included()->get();
         return response()->json($transaction);
     }
 
@@ -32,9 +31,9 @@ class TransactionController extends Controller
     {
 
         $request -> validate([
-            'numeroDeTransaccion' => 'required',
-            'totalTransaccion' => 'required',
-            'fechaDeTransaccion' => 'required',
+            'monto' => 'required',
+            'fecha' => 'required',
+            'motivo' => 'required',
             'type_id' => 'required|exists:types,id'
         ]);
 
