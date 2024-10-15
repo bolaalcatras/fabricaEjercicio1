@@ -10,9 +10,9 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id','monto','fecha','motivo'];
+    protected $fillable = ['type_id','user_id','monto','fecha','motivo'];
 
-    protected $allowIncluded = ['type'];
+    protected $allowIncluded = ['type','user'];
 
     //scope para relaciones anidadas 
     public function scopeIncluded(Builder $query)

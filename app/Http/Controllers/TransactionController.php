@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -27,19 +28,23 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function     store(Request $request)
+    public function store(Request $request)
     {
-
         $request -> validate([
             'monto' => 'required',
             'fecha' => 'required',
             'motivo' => 'required',
-            'type_id' => 'required|exists:types,id'
-        ]);
+            'type_id' => 'required|exists:types,id',
+         ]);
+
+        $user_id = Auth::id();
+        $request['user_id'] = $user_id;
 
         $transaction = Transaction::create($request->all());
 
         return response()->json($transaction);
+       
+
     }
 
     /**
@@ -69,7 +74,8 @@ class TransactionController extends Controller
          'monto' => 'required',
          'fecha' => 'required',
          'motivo' => 'required',
-         'type_id' => 'required|exists:types,id'
+         'type_id' => 'required|exists:types,id',
+         'user_id' => 'required|exists:users,id'  
         ]);
 
         $transaction->update($request->all());
